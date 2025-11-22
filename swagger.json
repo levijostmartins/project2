@@ -5,7 +5,7 @@
     "description": "Auto-generated documentation",
     "version": "1.0.0"
   },
-  "host": "",
+  "host": "https://project2-1s82.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
