@@ -15,7 +15,7 @@ Accept: application/json
 
 GET {{baseUrl}}/books/{{bookId}}
 Accept: application/json
-
+###
 
 # CREATE BOOK  (Auth temporarily disabled)
 POST {{baseUrl}}/books
@@ -33,7 +33,7 @@ Content-Type: application/json
   "price": 29.99,
   "stock": 10
 }
-
+###
 
 # UPDATE BOOK (Auth temporarily disabled)
 
@@ -44,9 +44,9 @@ Content-Type: application/json
   "price": 24.99,
   "stock": 8
 }
-
+###
 
 # DELETE BOOK (Auth temporarily disabled)
-
+###
 DELETE {{baseUrl}}/books/{{bookId}}
 Accept: application/json

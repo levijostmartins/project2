@@ -2,52 +2,52 @@
   "swagger": "2.0",
   "info": {
     "title": "Library Bookstore API",
-    "description": "Auto-generated documentation",
+    "description": "API documentation for the Library Bookstore service",
     "version": "1.0.0"
   },
-  "host": "https://project2-1s82.onrender.com",
-  "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "host": "project2-1s82.onrender.com",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
   "paths": {
-    "/": {
+    "/books": {
       "get": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Get all books",
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/books/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+            "description": "List of books",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Book" }
+            }
           }
         }
       },
       "post": {
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
+        "tags": ["Books"],
+        "summary": "Create a new book",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Book" }
           }
+        ],
+        "responses": {
+          "201": { "description": "Book created successfully" },
+          "400": { "description": "Validation error" }
         }
       }
     },
+
     "/books/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Get a book by ID",
         "parameters": [
           {
             "name": "id",
@@ -58,43 +58,39 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Book data",
+            "schema": { "$ref": "#/definitions/Book" }
           },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "404": { "description": "Book not found" }
         }
       },
+
       "put": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Update a book",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Book" }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "200": { "description": "Book updated" },
+          "404": { "description": "Book not found" }
         }
       },
+
       "delete": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Delete a book",
         "parameters": [
           {
             "name": "id",
@@ -104,74 +100,117 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "200": { "description": "Book deleted" },
+          "404": { "description": "Book not found" }
         }
       }
     },
+
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": { "description": "List of users" }
+        }
+      }
+    },
+
     "/users/auth/google": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Start Google OAuth",
         "responses": {
-          "default": {
-            "description": ""
-          }
+          "302": { "description": "Redirect to Google authentication" }
         }
       }
     },
+
     "/users/auth/google/callback": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Google OAuth callback",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "200": { "description": "Login success" },
+          "401": { "description": "OAuth failed" }
         }
       }
     },
+
     "/users/auth/failure": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "OAuth failure handler",
         "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
+          "401": { "description": "Authentication failed" }
         }
       }
     },
+
     "/users/profile": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Get authenticated user's profile",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "200": { "description": "User profile data" },
+          "401": { "description": "Unauthorized" }
         }
       }
-    },
-    "/users/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
+    }
+  },
+
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "required": ["title", "author", "isbn"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Clean Code"
+        },
+        "author": {
+          "type": "string",
+          "example": "Robert C. Martin"
+        },
+        "isbn": {
+          "type": "string",
+          "example": "978-0132350884"
+        },
+        "publisher": {
+          "type": "string",
+          "example": "Prentice Hall"
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "genre": {
+          "type": "string",
+          "example": "Software Engineering"
+        },
+        "pages": {
+          "type": "integer",
+          "example": 464
+        },
+        "language": {
+          "type": "string",
+          "example": "English"
+        },
+        "price": {
+          "type": "number",
+          "example": 49.99
+        },
+        "stock": {
+          "type": "integer",
+          "example": 10
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
