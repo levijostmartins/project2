@@ -1,0 +1,52 @@
+############################################
+#           BOOKS CRUD TEST FILE
+############################################
+
+@baseUrl = http://localhost:3000/api
+@bookId = 692201ba11c5f2639d8ff216
+
+# GET ALL BOOKS
+
+GET {{baseUrl}}/books
+Accept: application/json
+
+
+# GET SINGLE BOOK
+
+GET {{baseUrl}}/books/{{bookId}}
+Accept: application/json
+
+
+# CREATE BOOK  (Auth temporarily disabled)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "BOM",
+  "author": "JS",
+  "isbn": "1423523423425",
+  "publisher": "lds",
+  "publishedDate": "2018-12-04",
+  "genre": "religion",
+  "pages": 700,
+  "language": "English",
+  "price": 29.99,
+  "stock": 10
+}
+
+
+# UPDATE BOOK (Auth temporarily disabled)
+
+PUT {{baseUrl}}/books/{{bookId}}
+Content-Type: application/json
+
+{
+  "price": 24.99,
+  "stock": 8
+}
+
+
+# DELETE BOOK (Auth temporarily disabled)
+
+DELETE {{baseUrl}}/books/{{bookId}}
+Accept: application/json
